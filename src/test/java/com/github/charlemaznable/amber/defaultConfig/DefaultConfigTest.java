@@ -51,15 +51,22 @@ public class DefaultConfigTest {
         val jsonString = json(cookieValue);
         val mockCookie = new MockCookie("cookie-name", base64(encrypt(jsonString, "A916EFFC3121F935")));
 
+        val verboseCookieValue = new CookieValue();
+        verboseCookieValue.setUsername("a");
+        verboseCookieValue.setRandom("b");
+        verboseCookieValue.setExpiredTime(DateTime.now().plusSeconds(3));
+        val verboseJsonString = json(verboseCookieValue);
+        val verboseMockCookie = new MockCookie("cookie-name", base64(encrypt(verboseJsonString, "A916EFFC3121F935")));
+
         val response = mockMvc.perform(get("/default/index")
-                .cookie(mockCookie))
+                .cookie(verboseMockCookie, mockCookie))
                 .andExpect(status().isOk())
                 .andReturn().getResponse();
         assertNull(response.getRedirectedUrl());
 
         Thread.sleep(5000);
         val response2 = mockMvc.perform(get("/default/index")
-                .cookie(mockCookie))
+                .cookie(verboseMockCookie, mockCookie))
                 .andExpect(status().isFound())
                 .andReturn().getResponse();
         assertEquals("amber-login-url?appID=1000&redirectUrl=local-url%2Fdefault%2Findex", response2.getRedirectedUrl());
