@@ -7,8 +7,12 @@ import org.joda.time.DateTime;
 @Data
 public class CookieValue {
 
+    @JSONField(name = "Username")
     private String username;
+
+    @JSONField(name = "Random")
     private String random;
-    @JSONField(name = "expired-time")
+
+    @JSONField(name = "ExpiredTime")
     private DateTime expiredTime;
 }

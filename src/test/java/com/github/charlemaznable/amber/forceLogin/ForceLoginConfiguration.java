@@ -19,12 +19,12 @@ public class ForceLoginConfiguration {
     public void postConstruct() {
         MockDiamondServer.setUpMockServer();
         MockDiamondServer.setConfigInfo("AMBER", "forceLogin",
-                "appId=1000\n" +
-                        "encryptKey=A916EFFC3121F935\n" +
-                        "cookieName=cookie-name\n" +
-                        "amberLoginUrl=amber-login-url\n" +
-                        "localUrl=local-url\n" +
-                        "forceLogin=false");
+                "AppID=1000\n" +
+                        "EncryptKey=A916EFFC3121F935\n" +
+                        "CookieName=cookie-name\n" +
+                        "AmberLoginURL=amber-login-url\n" +
+                        "LocalURL=local-url\n" +
+                        "ForceLogin=false");
     }
 
     @PreDestroy

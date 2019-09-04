@@ -11,7 +11,6 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import lombok.var;
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
@@ -27,6 +26,7 @@ import static com.github.charlemaznable.codec.Base64.unBase64;
 import static com.github.charlemaznable.codec.Json.unJson;
 import static com.github.charlemaznable.crypto.AES.decrypt;
 import static com.github.charlemaznable.lang.Condition.nullThen;
+import static com.github.charlemaznable.lang.Str.isBlank;
 import static com.github.charlemaznable.lang.Str.isEmpty;
 import static org.springframework.core.annotation.AnnotatedElementUtils.findMergedAnnotation;
 
@@ -60,27 +60,28 @@ public class AmberInterceptor implements HandlerInterceptor {
         if (amberLogin.isPresent() && !amberLogin.get().required()) return true;
         if (!amberLogin.isPresent() && !amberConfig.forceLogin()) return true;
 
-        val appId = amberConfig.appId();
+        val appID = amberConfig.appID();
         val cookieName = amberConfig.cookieName();
         val encryptKey = amberConfig.encryptKey();
-        val amberLoginUrl = amberConfig.amberLoginUrl();
-        val localUrl = amberConfig.localUrl();
+        val amberLoginURL = amberConfig.amberLoginURL();
+        val localURL = amberConfig.localURL();
 
-        if (null == appId || null == cookieName || null == encryptKey ||
-                null == amberLoginUrl || null == localUrl) return false;
+        if (isBlank(appID) || isBlank(cookieName) || isBlank(encryptKey) ||
+                isBlank(amberLoginURL) || isBlank(localURL)) return false;
 
         val cookies = nullThen(request.getCookies(), () -> new Cookie[]{});
         for (val cookie : cookies) {
             if (cookie.getName().equals(cookieName)) {
                 val decrypted = decrypt(unBase64(cookie.getValue()), encryptKey);
                 val cookieValue = unJson(decrypted, CookieValue.class);
+                if (cookieValue.getExpiredTime().isBeforeNow()) break;
                 if (isEmpty(cookieValue.getUsername())) break;
-                if (cookieValue.getExpiredTime().isAfter(DateTime.now())) return true;
+                return true;
             }
         }
 
-        var location = amberLoginUrl + "?appId=" + appId;
-        location += "&redirectUrl=" + Url.encode(localUrl + request.getRequestURI());
+        var location = amberLoginURL + "?appID=" + appID;
+        location += "&redirectUrl=" + Url.encode(localURL + request.getRequestURI());
         response.sendRedirect(location);
         return false;
     }

@@ -11,7 +11,7 @@ public class CookieValueTest {
 
     @Test
     public void testCookieValue() {
-        val jsonString = "{\"username\":\"a\",\"random\":\"b\",\"expired-time\":\"2019-03-05T23:33:59.029596352+08:00\"}";
+        val jsonString = "{\"Username\":\"a\",\"Random\":\"b\",\"ExpiredTime\":\"2019-03-05T23:33:59.029596352+08:00\"}";
         CookieValue cookieValue = unJson(jsonString, CookieValue.class);
 
         assertEquals("a", cookieValue.getUsername());
