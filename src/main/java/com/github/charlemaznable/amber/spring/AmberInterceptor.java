@@ -60,14 +60,14 @@ public class AmberInterceptor implements HandlerInterceptor {
         if (amberLogin.isPresent() && !amberLogin.get().required()) return true;
         if (!amberLogin.isPresent() && !amberConfig.forceLogin()) return true;
 
-        val appID = amberConfig.appID();
+        val appId = amberConfig.appId();
         val cookieName = amberConfig.cookieName();
         val encryptKey = amberConfig.encryptKey();
-        val amberLoginURL = amberConfig.amberLoginURL();
-        val localURL = amberConfig.localURL();
+        val amberLoginUrl = amberConfig.amberLoginUrl();
+        val localUrl = amberConfig.localUrl();
 
-        if (isBlank(appID) || isBlank(cookieName) || isBlank(encryptKey) ||
-                isBlank(amberLoginURL) || isBlank(localURL)) return false;
+        if (isBlank(appId) || isBlank(cookieName) || isBlank(encryptKey) ||
+                isBlank(amberLoginUrl) || isBlank(localUrl)) return false;
 
         val cookies = nullThen(request.getCookies(), () -> new Cookie[]{});
         for (val cookie : cookies) {
@@ -80,8 +80,8 @@ public class AmberInterceptor implements HandlerInterceptor {
             }
         }
 
-        var location = amberLoginURL + "?appID=" + appID;
-        location += "&redirectUrl=" + Url.encode(localURL + request.getRequestURI());
+        var location = amberLoginUrl + "?appId=" + appId;
+        location += "&redirectUrl=" + Url.encode(localUrl + request.getRequestURI());
         response.sendRedirect(location);
         return false;
     }

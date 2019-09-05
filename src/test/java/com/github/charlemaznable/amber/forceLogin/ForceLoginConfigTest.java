@@ -62,7 +62,7 @@ public class ForceLoginConfigTest {
                 .cookie(mockCookie))
                 .andExpect(status().isFound())
                 .andReturn().getResponse();
-        assertEquals("amber-login-url?appID=1000&redirectUrl=local-url%2FforceLogin%2Findex", response2.getRedirectedUrl());
+        assertEquals("amber-login-url?appId=1000&redirectUrl=local-url%2FforceLogin%2Findex", response2.getRedirectedUrl());
     }
 
     @SuppressWarnings("Duplicates")

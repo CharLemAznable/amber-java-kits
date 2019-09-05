@@ -19,11 +19,11 @@ public class DefaultConfiguration {
     public void postConstruct() {
         MockDiamondServer.setUpMockServer();
         MockDiamondServer.setConfigInfo("AMBER", "default",
-                "AppID=1000\n" +
+                "AppId=1000\n" +
                         "EncryptKey=A916EFFC3121F935\n" +
                         "CookieName=cookie-name\n" +
-                        "AmberLoginURL=amber-login-url\n" +
-                        "LocalURL=local-url");
+                        "AmberLoginUrl=amber-login-url\n" +
+                        "LocalUrl=local-url");
     }
 
     @PreDestroy

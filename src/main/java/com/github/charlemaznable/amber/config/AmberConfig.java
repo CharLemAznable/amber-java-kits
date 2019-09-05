@@ -5,8 +5,8 @@ import com.github.charlemaznable.miner.MinerConfig;
 @MinerConfig(group = "AMBER", dataId = "default")
 public interface AmberConfig {
 
-    @MinerConfig(dataId = "AppID")
-    String appID();
+    @MinerConfig(dataId = "AppId")
+    String appId();
 
     @MinerConfig(dataId = "EncryptKey")
     String encryptKey();
@@ -14,11 +14,11 @@ public interface AmberConfig {
     @MinerConfig(dataId = "CookieName")
     String cookieName();
 
-    @MinerConfig(dataId = "AmberLoginURL")
-    String amberLoginURL();
+    @MinerConfig(dataId = "AmberLoginUrl")
+    String amberLoginUrl();
 
-    @MinerConfig(dataId = "LocalURL")
-    String localURL();
+    @MinerConfig(dataId = "LocalUrl")
+    String localUrl();
 
     @MinerConfig(dataId = "ForceLogin", defaultValue = "TRUE")
     boolean forceLogin();

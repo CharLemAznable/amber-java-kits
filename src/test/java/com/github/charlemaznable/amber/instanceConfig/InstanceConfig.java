@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 public class InstanceConfig implements AmberConfig {
 
     @Override
-    public String appID() {
+    public String appId() {
         return "1000";
     }
 
@@ -22,12 +22,12 @@ public class InstanceConfig implements AmberConfig {
     }
 
     @Override
-    public String amberLoginURL() {
+    public String amberLoginUrl() {
         return "amber-login-url";
     }
 
     @Override
-    public String localURL() {
+    public String localUrl() {
         return "local-url";
     }
 
