@@ -3,7 +3,7 @@ package com.github.charlemaznable.amber.spring;
 import com.github.charlemaznable.amber.AmberLogin;
 import com.github.charlemaznable.amber.CookieValue;
 import com.github.charlemaznable.amber.config.AmberConfig;
-import com.github.charlemaznable.net.Url;
+import com.github.charlemaznable.core.net.Url;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import lombok.EqualsAndHashCode;
@@ -22,12 +22,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
 import java.util.Optional;
 
-import static com.github.charlemaznable.codec.Base64.unBase64;
-import static com.github.charlemaznable.codec.Json.unJson;
-import static com.github.charlemaznable.crypto.AES.decrypt;
-import static com.github.charlemaznable.lang.Condition.nullThen;
-import static com.github.charlemaznable.lang.Str.isBlank;
-import static com.github.charlemaznable.lang.Str.isEmpty;
+import static com.github.charlemaznable.core.codec.Base64.unBase64;
+import static com.github.charlemaznable.core.codec.Json.unJson;
+import static com.github.charlemaznable.core.crypto.AES.decrypt;
+import static com.github.charlemaznable.core.lang.Condition.nullThen;
+import static com.github.charlemaznable.core.lang.Str.isBlank;
+import static com.github.charlemaznable.core.lang.Str.isEmpty;
 import static org.springframework.core.annotation.AnnotatedElementUtils.findMergedAnnotation;
 
 @Slf4j

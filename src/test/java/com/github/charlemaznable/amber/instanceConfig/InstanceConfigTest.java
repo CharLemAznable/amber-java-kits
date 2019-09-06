@@ -17,9 +17,9 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
 
-import static com.github.charlemaznable.codec.Base64.base64;
-import static com.github.charlemaznable.codec.Json.json;
-import static com.github.charlemaznable.crypto.AES.encrypt;
+import static com.github.charlemaznable.core.codec.Base64.base64;
+import static com.github.charlemaznable.core.codec.Json.json;
+import static com.github.charlemaznable.core.crypto.AES.encrypt;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
