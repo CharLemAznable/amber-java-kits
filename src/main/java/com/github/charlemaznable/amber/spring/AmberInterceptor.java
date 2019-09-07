@@ -3,6 +3,7 @@ package com.github.charlemaznable.amber.spring;
 import com.github.charlemaznable.amber.AmberLogin;
 import com.github.charlemaznable.amber.CookieValue;
 import com.github.charlemaznable.amber.config.AmberConfig;
+import com.github.charlemaznable.core.miner.MinerFactory;
 import com.github.charlemaznable.core.net.Url;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -38,6 +40,13 @@ public class AmberInterceptor implements HandlerInterceptor {
     private AmberConfig amberConfig;
     private Cache<HandlerAmberLoginCacheKey, Optional<AmberLogin>>
             handlerAmberLoginCache = CacheBuilder.newBuilder().build();
+
+    @PostConstruct
+    public void postConstruct() {
+        if (null == amberConfig) {
+            amberConfig = MinerFactory.getMiner(AmberConfig.class);
+        }
+    }
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {

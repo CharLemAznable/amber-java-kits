@@ -19,7 +19,7 @@ public class AnnoConfiguration {
     public void postConstruct() {
         MockDiamondServer.setUpMockServer();
         MockDiamondServer.setConfigInfo("AMBER", "anno",
-                "AppId=1000\n" +
+                "AppId=anno\n" +
                         "EncryptKey=A916EFFC3121F935\n" +
                         "CookieName=cookie-name\n" +
                         "AmberLoginUrl=amber-login-url\n" +

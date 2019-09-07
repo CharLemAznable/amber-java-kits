@@ -8,7 +8,7 @@ public class InstanceConfig implements AmberConfig {
 
     @Override
     public String appId() {
-        return "1000";
+        return "InstanceConfig";
     }
 
     @Override
