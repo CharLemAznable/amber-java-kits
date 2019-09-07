@@ -56,7 +56,7 @@ public class DefaultConfigTest {
         verboseCookieValue.setRandom("b");
         verboseCookieValue.setExpiredTime(DateTime.now().plusSeconds(3));
         val verboseJsonString = json(verboseCookieValue);
-        val verboseMockCookie = new MockCookie("cookie-name", base64(encrypt(verboseJsonString, "A916EFFC3121F935")));
+        val verboseMockCookie = new MockCookie("verbose-cookie-name", base64(encrypt(verboseJsonString, "A916EFFC3121F935")));
 
         val response = mockMvc.perform(get("/default/index")
                 .cookie(verboseMockCookie, mockCookie))
