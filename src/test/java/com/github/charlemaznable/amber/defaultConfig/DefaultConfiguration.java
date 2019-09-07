@@ -1,12 +1,15 @@
 package com.github.charlemaznable.amber.defaultConfig;
 
 import com.github.charlemaznable.amber.spring.AmberImport;
+import com.github.charlemaznable.core.miner.MinerFactory;
 import org.n3r.diamond.client.impl.MockDiamondServer;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+
+import static org.joor.Reflect.onClass;
 
 @EnableWebMvc
 @ComponentScan
@@ -15,6 +18,7 @@ public class DefaultConfiguration {
 
     @PostConstruct
     public void postConstruct() {
+        onClass(MinerFactory.class).field("minerCache").call("invalidateAll");
         MockDiamondServer.setUpMockServer();
         MockDiamondServer.setConfigInfo("AMBER", "default",
                 "AppId=default\n" +
