@@ -1,7 +1,6 @@
 package com.github.charlemaznable.amber;
 
 import lombok.val;
-import org.joda.time.DateTime;
 import org.junit.jupiter.api.Test;
 
 import static com.github.charlemaznable.core.codec.Json.unJson;
@@ -12,11 +11,11 @@ public class CookieValueTest {
     @Test
     public void testCookieValue() {
         val jsonString = "{\"Username\":\"a\",\"Random\":\"b\",\"ExpiredTime\":\"2019-03-05T23:33:59.029596352+08:00\"}";
-        CookieValue cookieValue = unJson(jsonString, CookieValue.class);
+        val cookieValue = unJson(jsonString, CookieValue.class);
 
         assertEquals("a", cookieValue.getUsername());
         assertEquals("b", cookieValue.getRandom());
-        DateTime expired = cookieValue.getExpiredTime();
+        val expired = cookieValue.getExpiredTime();
         assertEquals(2019, expired.getYear());
         assertEquals(3, expired.getMonthOfYear());
         assertEquals(5, expired.getDayOfMonth());
