@@ -5,6 +5,7 @@ import com.github.charlemaznable.core.spring.ComplexImport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.lang.NonNull;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -18,7 +19,7 @@ public class AmberConfiguration implements WebMvcConfigurer {
     private AmberInterceptor amberInterceptor;
 
     @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(amberInterceptor).addPathPatterns("/**");
+    public void addInterceptors(@NonNull InterceptorRegistry registry) {
+        registry.addInterceptor(amberInterceptor);
     }
 }
