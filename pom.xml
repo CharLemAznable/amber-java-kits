@@ -11,10 +11,10 @@
     </parent>
 
     <artifactId>amber-java-kits</artifactId>
-    <version>0.5.2</version>
+    <version>0.5.3</version>
     <packaging>jar</packaging>
 
-    <name>amber-java-kits</name>
+    <name>Amber Java Kits</name>
     <url>https://github.com/CharLemAznable/amber-java-kits</url>
     <description>Java Kits for amber-login(https://github.com/CharLemAznable/amber-login).</description>
 
