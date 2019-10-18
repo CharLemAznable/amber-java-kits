@@ -17,10 +17,13 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.time.Duration;
+
 import static com.github.charlemaznable.core.codec.Base64.base64;
 import static com.github.charlemaznable.core.codec.Json.json;
 import static com.github.charlemaznable.core.crypto.AES.encrypt;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.awaitility.Awaitility.await;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -57,12 +60,15 @@ public class AnnoConfigTest {
                 .andReturn().getResponse();
         assertNull(response.getRedirectedUrl());
 
-        Thread.sleep(5000);
-        val response2 = mockMvc.perform(get("/anno/index")
-                .cookie(mockCookie))
-                .andExpect(status().isFound())
-                .andReturn().getResponse();
-        assertEquals("amber-login-url?appId=anno&redirectUrl=local-url%2Fanno%2Findex", response2.getRedirectedUrl());
+        assertDoesNotThrow(() ->
+                await().pollDelay(Duration.ofMillis(5000)).until(() -> {
+                    val response2 = mockMvc.perform(get("/anno/index")
+                            .cookie(mockCookie))
+                            .andExpect(status().isFound())
+                            .andReturn().getResponse();
+                    return "amber-login-url?appId=anno&redirectUrl=local-url%2Fanno%2Findex"
+                            .equals(response2.getRedirectedUrl());
+                }));
     }
 
     @SuppressWarnings("Duplicates")
@@ -74,10 +80,12 @@ public class AnnoConfigTest {
                 .andReturn().getResponse();
         assertNull(response.getRedirectedUrl());
 
-        Thread.sleep(5000);
-        val response2 = mockMvc.perform(get("/anno/exclude"))
-                .andExpect(status().isOk())
-                .andReturn().getResponse();
-        assertNull(response.getRedirectedUrl());
+        assertDoesNotThrow(() ->
+                await().pollDelay(Duration.ofMillis(5000)).until(() -> {
+                    val response2 = mockMvc.perform(get("/anno/exclude"))
+                            .andExpect(status().isOk())
+                            .andReturn().getResponse();
+                    return null == response.getRedirectedUrl();
+                }));
     }
 }

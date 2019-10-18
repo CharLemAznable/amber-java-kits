@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import javax.annotation.Nonnull;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -49,25 +50,17 @@ public class AmberInterceptor implements HandlerInterceptor {
     }
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(@Nonnull HttpServletRequest request,
+                             @Nonnull HttpServletResponse response,
+                             @Nonnull Object handler) throws Exception {
         if (!(handler instanceof HandlerMethod)) return true;
         if (null == amberConfig) return false;
 
         val handlerMethod = (HandlerMethod) handler;
         val cacheKey = new HandlerAmberLoginCacheKey(handlerMethod);
-        val amberLogin = handlerAmberLoginCache.get(cacheKey, () -> findAmberLogin(cacheKey));
-
-        // +-----------------------------+-------------------+--------------------+
-        // |                             | forceLogin = true | forceLogin = false |
-        // +-----------------------------+-------------------+--------------------+
-        // |    AmberLogin not Present   |     intercept     |        pass        |
-        // +-----------------------------+-------------------+--------------------+
-        // |  AmberLogin required = true |     intercept     |      intercept     |
-        // +-----------------------------+-------------------+--------------------+
-        // | AmberLogin required = false |        pass       |        pass        |
-        // +-----------------------------+-------------------+--------------------+
-        if (amberLogin.isPresent() && !amberLogin.get().required()) return true;
-        if (!amberLogin.isPresent() && !amberConfig.forceLogin()) return true;
+        val amberLoginOptional = handlerAmberLoginCache.get(
+                cacheKey, () -> findAmberLogin(cacheKey));
+        if (dontIntercept(amberLoginOptional)) return true;
 
         val appId = amberConfig.appId();
         val cookieName = amberConfig.cookieName();
@@ -83,8 +76,8 @@ public class AmberInterceptor implements HandlerInterceptor {
             if (cookie.getName().equals(cookieName)) {
                 val decrypted = decrypt(unBase64(cookie.getValue()), encryptKey);
                 val cookieValue = unJson(decrypted, CookieValue.class);
-                if (cookieValue.getExpiredTime().isBeforeNow()) break;
-                if (isEmpty(cookieValue.getUsername())) break;
+                if (cookieValue.getExpiredTime().isBeforeNow() ||
+                        isEmpty(cookieValue.getUsername())) break;
                 return true;
             }
         }
@@ -103,6 +96,21 @@ public class AmberInterceptor implements HandlerInterceptor {
         if (null != classAmberLogin) return Optional.of(classAmberLogin);
 
         return Optional.empty();
+    }
+
+    @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
+    private boolean dontIntercept(Optional<AmberLogin> amberLoginOptional) {
+        // +-----------------------------+-------------------+--------------------+
+        // |                             | forceLogin = true | forceLogin = false |
+        // +-----------------------------+-------------------+--------------------+
+        // |    AmberLogin not Present   |     intercept     |        pass        |
+        // +-----------------------------+-------------------+--------------------+
+        // |  AmberLogin required = true |     intercept     |      intercept     |
+        // +-----------------------------+-------------------+--------------------+
+        // | AmberLogin required = false |        pass       |        pass        |
+        // +-----------------------------+-------------------+--------------------+
+        return (amberLoginOptional.isPresent() && !amberLoginOptional.get().required()) ||
+                (!amberLoginOptional.isPresent() && !amberConfig.forceLogin());
     }
 
     @Getter
