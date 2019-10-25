@@ -33,3 +33,13 @@ Java Kits for [amber-login](https://github.com/CharLemAznable/amber-login).
   <version>0.5.4</version>
 </dependency>
 ```
+
+##### Maven Dependency SNAPSHOT
+
+```xml
+<dependency>
+  <groupId>com.github.charlemaznable</groupId>
+  <artifactId>amber-java-kits</artifactId>
+  <version>0.6.0-SNAPSHOT</version>
+</dependency>
+```
