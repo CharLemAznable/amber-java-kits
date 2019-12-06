@@ -5,4 +5,7 @@ import com.github.charlemaznable.core.miner.MinerConfig;
 
 @MinerConfig(group = "AMBER", dataId = "InterfaceConfig")
 public interface InterfaceConfig extends AmberConfig {
+
+    @MinerConfig(dataId = "InterfaceAppId")
+    String appId();
 }
