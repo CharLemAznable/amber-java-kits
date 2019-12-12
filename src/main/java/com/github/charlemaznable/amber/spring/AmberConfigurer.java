@@ -15,8 +15,12 @@ import javax.annotation.Nonnull;
 @ComplexComponentScan
 public class AmberConfigurer implements WebMvcConfigurer {
 
+    private final AmberInterceptor amberInterceptor;
+
     @Autowired
-    private AmberInterceptor amberInterceptor;
+    public AmberConfigurer(AmberInterceptor amberInterceptor) {
+        this.amberInterceptor = amberInterceptor;
+    }
 
     @Override
     public void addInterceptors(@Nonnull InterceptorRegistry registry) {
