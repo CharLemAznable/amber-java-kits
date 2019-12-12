@@ -43,7 +43,7 @@ public class AmberInterceptor implements HandlerInterceptor {
 
     @Autowired(required = false)
     public AmberInterceptor() {
-        this.amberConfig = getMiner(AmberConfig.class);
+        this(getMiner(AmberConfig.class));
     }
 
     @Autowired(required = false)
