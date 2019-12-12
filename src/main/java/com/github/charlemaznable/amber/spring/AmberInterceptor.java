@@ -3,7 +3,6 @@ package com.github.charlemaznable.amber.spring;
 import com.github.charlemaznable.amber.AmberLogin;
 import com.github.charlemaznable.amber.CookieValue;
 import com.github.charlemaznable.amber.config.AmberConfig;
-import com.github.charlemaznable.core.miner.MinerFactory;
 import com.github.charlemaznable.core.net.Url;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
@@ -18,7 +17,6 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.annotation.Nonnull;
-import javax.annotation.PostConstruct;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,25 +26,30 @@ import java.util.Optional;
 import static com.github.charlemaznable.core.codec.Base64.unBase64;
 import static com.github.charlemaznable.core.codec.Json.unJson;
 import static com.github.charlemaznable.core.crypto.AES.decrypt;
+import static com.github.charlemaznable.core.lang.Condition.checkNotNull;
 import static com.github.charlemaznable.core.lang.Condition.nullThen;
 import static com.github.charlemaznable.core.lang.Str.isBlank;
 import static com.github.charlemaznable.core.lang.Str.isEmpty;
+import static com.github.charlemaznable.core.miner.MinerFactory.getMiner;
 import static org.springframework.core.annotation.AnnotatedElementUtils.findMergedAnnotation;
 
 @Slf4j
 @Component
 public class AmberInterceptor implements HandlerInterceptor {
 
-    @Autowired(required = false)
-    private AmberConfig amberConfig;
+    private final AmberConfig amberConfig;
     private Cache<HandlerAmberLoginCacheKey, Optional<AmberLogin>>
             handlerAmberLoginCache = CacheBuilder.newBuilder().build();
 
-    @PostConstruct
-    public void postConstruct() {
-        if (null == amberConfig) {
-            amberConfig = MinerFactory.getMiner(AmberConfig.class);
-        }
+    @Autowired(required = false)
+    public AmberInterceptor() {
+        this.amberConfig = getMiner(AmberConfig.class);
+    }
+
+    @Autowired(required = false)
+    public AmberInterceptor(AmberConfig amberConfig) {
+        checkNotNull(amberConfig);
+        this.amberConfig = amberConfig;
     }
 
     @Override
