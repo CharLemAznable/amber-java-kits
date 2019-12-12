@@ -18,7 +18,7 @@ public class InterfaceConfiguration {
     @PostConstruct
     public static void postConstruct() {
         MockDiamondServer.setUpMockServer();
-        MockDiamondServer.setConfigInfo("AMBER", "InterfaceConfig",
+        MockDiamondServer.setConfigInfo("Amber", "InterfaceConfig",
                 "InterfaceAppId=InterfaceConfig\n" +
                         "EncryptKey=A916EFFC3121F935\n" +
                         "CookieName=cookie-name\n" +

@@ -20,7 +20,7 @@ public class DefaultConfiguration {
     public void postConstruct() {
         onClass(MinerFactory.class).field("minerCache").call("invalidateAll");
         MockDiamondServer.setUpMockServer();
-        MockDiamondServer.setConfigInfo("AMBER", "default",
+        MockDiamondServer.setConfigInfo("Amber", "default",
                 "AppId=default\n" +
                         "EncryptKey=A916EFFC3121F935\n" +
                         "CookieName=cookie-name\n" +

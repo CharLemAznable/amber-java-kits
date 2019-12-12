@@ -2,7 +2,7 @@ package com.github.charlemaznable.amber.config;
 
 import com.github.charlemaznable.core.miner.MinerConfig;
 
-@MinerConfig(group = "AMBER", dataId = "default")
+@MinerConfig(group = "Amber", dataId = "default")
 public interface AmberConfig {
 
     @MinerConfig(dataId = "AppId")

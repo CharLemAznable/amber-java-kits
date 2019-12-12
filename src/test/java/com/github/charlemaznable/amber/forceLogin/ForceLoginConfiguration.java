@@ -18,7 +18,7 @@ public class ForceLoginConfiguration {
     @PostConstruct
     public void postConstruct() {
         MockDiamondServer.setUpMockServer();
-        MockDiamondServer.setConfigInfo("AMBER", "forceLogin",
+        MockDiamondServer.setConfigInfo("Amber", "forceLogin",
                 "AppId=forceLogin\n" +
                         "EncryptKey=A916EFFC3121F935\n" +
                         "CookieName=cookie-name\n" +
