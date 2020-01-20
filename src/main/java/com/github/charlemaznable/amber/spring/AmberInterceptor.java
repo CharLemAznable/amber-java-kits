@@ -35,7 +35,7 @@ import static org.springframework.core.annotation.AnnotatedElementUtils.findMerg
 
 @Slf4j
 @Component
-public class AmberInterceptor implements HandlerInterceptor {
+public final class AmberInterceptor implements HandlerInterceptor {
 
     private final AmberConfig amberConfig;
     private Cache<HandlerAmberLoginCacheKey, Optional<AmberLogin>>
