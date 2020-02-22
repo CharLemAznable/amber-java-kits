@@ -48,8 +48,7 @@ public final class AmberInterceptor implements HandlerInterceptor {
 
     @Autowired(required = false)
     public AmberInterceptor(AmberConfig amberConfig) {
-        checkNotNull(amberConfig);
-        this.amberConfig = amberConfig;
+        this.amberConfig = checkNotNull(amberConfig);
     }
 
     @Override
