@@ -17,6 +17,7 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,7 +27,6 @@ import java.util.Optional;
 import static com.github.charlemaznable.core.codec.Base64.unBase64;
 import static com.github.charlemaznable.core.codec.Json.unJson;
 import static com.github.charlemaznable.core.crypto.AES.decrypt;
-import static com.github.charlemaznable.core.lang.Condition.checkNotNull;
 import static com.github.charlemaznable.core.lang.Condition.nullThen;
 import static com.github.charlemaznable.core.lang.Str.isBlank;
 import static com.github.charlemaznable.core.lang.Str.isEmpty;
@@ -41,14 +41,9 @@ public final class AmberInterceptor implements HandlerInterceptor {
     private Cache<HandlerAmberLoginCacheKey, Optional<AmberLogin>>
             handlerAmberLoginCache = CacheBuilder.newBuilder().build();
 
-    @Autowired(required = false)
-    public AmberInterceptor() {
-        this(getMiner(AmberConfig.class));
-    }
-
-    @Autowired(required = false)
-    public AmberInterceptor(AmberConfig amberConfig) {
-        this.amberConfig = checkNotNull(amberConfig);
+    @Autowired
+    public AmberInterceptor(@Nullable AmberConfig amberConfig) {
+        this.amberConfig = nullThen(amberConfig, () -> getMiner(AmberConfig.class));
     }
 
     @Override
