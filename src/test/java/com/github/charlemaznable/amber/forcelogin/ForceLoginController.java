@@ -1,5 +1,6 @@
-package com.github.charlemaznable.amber.instanceConfig;
+package com.github.charlemaznable.amber.forcelogin;
 
+import com.github.charlemaznable.amber.AmberLogin;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -11,11 +12,17 @@ import static com.github.charlemaznable.core.net.Http.fetchParameterMap;
 import static com.github.charlemaznable.core.net.Http.responseJson;
 
 @Controller
-@RequestMapping("/instance")
-public class InstanceController {
+@RequestMapping("/forceLogin")
+public class ForceLoginController {
 
+    @AmberLogin
     @RequestMapping("/index")
     public void index(HttpServletRequest request, HttpServletResponse response) {
+        responseJson(response, json(fetchParameterMap(request)));
+    }
+
+    @RequestMapping("/exclude")
+    public void exclude(HttpServletRequest request, HttpServletResponse response) {
         responseJson(response, json(fetchParameterMap(request)));
     }
 }

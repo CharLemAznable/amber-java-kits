@@ -1,4 +1,4 @@
-package com.github.charlemaznable.amber.instanceConfig;
+package com.github.charlemaznable.amber.instanceconfig;
 
 import com.github.charlemaznable.amber.config.AmberConfig;
 import org.springframework.stereotype.Component;

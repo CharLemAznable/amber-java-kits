@@ -1,4 +1,4 @@
-package com.github.charlemaznable.amber.noneConfig;
+package com.github.charlemaznable.amber.cocs;
 
 import com.github.charlemaznable.amber.spring.AmberImport;
 import org.n3r.diamond.client.impl.MockDiamondServer;
@@ -14,7 +14,7 @@ import static org.joor.Reflect.on;
 @EnableWebMvc
 @ComponentScan
 @AmberImport
-public class NoneConfiguration {
+public class CocsErrorConfiguration {
 
     @PostConstruct
     public void postConstruct() {

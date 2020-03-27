@@ -1,4 +1,4 @@
-package com.github.charlemaznable.amber.interfaceConfig;
+package com.github.charlemaznable.amber.interfacenoneconfig;
 
 import com.github.charlemaznable.amber.spring.AmberImport;
 import com.github.charlemaznable.core.miner.MinerScan;
@@ -13,21 +13,15 @@ import javax.annotation.PreDestroy;
 @ComponentScan
 @AmberImport
 @MinerScan
-public class InterfaceConfiguration {
+public class InterfaceNoneConfiguration {
 
     @PostConstruct
-    public static void postConstruct() {
+    public void postConstruct() {
         MockDiamondServer.setUpMockServer();
-        MockDiamondServer.setConfigInfo("Amber", "InterfaceConfig",
-                "InterfaceAppId=InterfaceConfig\n" +
-                        "EncryptKey=A916EFFC3121F935\n" +
-                        "CookieName=cookie-name\n" +
-                        "AmberLoginUrl=amber-login-url\n" +
-                        "LocalUrl=local-url");
     }
 
     @PreDestroy
-    public static void preDestroy() {
+    public void preDestroy() {
         MockDiamondServer.tearDownMockServer();
     }
 }

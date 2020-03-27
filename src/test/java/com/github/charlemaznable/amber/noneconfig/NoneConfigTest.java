@@ -1,4 +1,4 @@
-package com.github.charlemaznable.amber.noneConfig;
+package com.github.charlemaznable.amber.noneconfig;
 
 import lombok.SneakyThrows;
 import lombok.val;

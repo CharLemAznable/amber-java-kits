@@ -1,4 +1,4 @@
-package com.github.charlemaznable.amber.interfaceConfig;
+package com.github.charlemaznable.amber.interfacenoneconfig;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,8 +11,8 @@ import static com.github.charlemaznable.core.net.Http.fetchParameterMap;
 import static com.github.charlemaznable.core.net.Http.responseJson;
 
 @Controller
-@RequestMapping("/interface")
-public class InterfaceController {
+@RequestMapping("/interface/none")
+public class InterfaceNoneController {
 
     @RequestMapping("/index")
     public void index(HttpServletRequest request, HttpServletResponse response) {

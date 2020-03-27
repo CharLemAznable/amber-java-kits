@@ -1,4 +1,4 @@
-package com.github.charlemaznable.amber.forceLogin;
+package com.github.charlemaznable.amber.forcelogin;
 
 import com.github.charlemaznable.amber.CookieValue;
 import lombok.SneakyThrows;

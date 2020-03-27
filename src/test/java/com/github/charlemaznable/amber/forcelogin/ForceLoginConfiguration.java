@@ -1,4 +1,4 @@
-package com.github.charlemaznable.amber.interfaceNoneConfig;
+package com.github.charlemaznable.amber.forcelogin;
 
 import com.github.charlemaznable.amber.spring.AmberImport;
 import com.github.charlemaznable.core.miner.MinerScan;
@@ -13,11 +13,18 @@ import javax.annotation.PreDestroy;
 @ComponentScan
 @AmberImport
 @MinerScan
-public class InterfaceNoneConfiguration {
+public class ForceLoginConfiguration {
 
     @PostConstruct
     public void postConstruct() {
         MockDiamondServer.setUpMockServer();
+        MockDiamondServer.setConfigInfo("Amber", "forceLogin",
+                "AppId=forceLogin\n" +
+                        "EncryptKey=A916EFFC3121F935\n" +
+                        "CookieName=cookie-name\n" +
+                        "AmberLoginUrl=amber-login-url\n" +
+                        "LocalUrl=local-url\n" +
+                        "ForceLogin=false");
     }
 
     @PreDestroy

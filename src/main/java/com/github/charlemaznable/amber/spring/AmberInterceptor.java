@@ -51,7 +51,6 @@ public final class AmberInterceptor implements HandlerInterceptor {
                              @Nonnull HttpServletResponse response,
                              @Nonnull Object handler) throws Exception {
         if (!(handler instanceof HandlerMethod)) return true;
-        if (null == amberConfig) return false;
 
         val handlerMethod = (HandlerMethod) handler;
         val cacheKey = new HandlerAmberLoginCacheKey(handlerMethod);

@@ -1,4 +1,4 @@
-package com.github.charlemaznable.amber.defaultConfig;
+package com.github.charlemaznable.amber.defaultconfig;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

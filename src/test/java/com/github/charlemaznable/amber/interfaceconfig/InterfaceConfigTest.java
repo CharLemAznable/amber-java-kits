@@ -1,4 +1,4 @@
-package com.github.charlemaznable.amber.defaultConfig;
+package com.github.charlemaznable.amber.interfaceconfig;
 
 import com.github.charlemaznable.amber.CookieValue;
 import lombok.SneakyThrows;
@@ -30,10 +30,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = DefaultConfiguration.class)
+@ContextConfiguration(classes = InterfaceConfiguration.class)
 @WebAppConfiguration
 @TestInstance(Lifecycle.PER_CLASS)
-public class DefaultConfigTest {
+public class InterfaceConfigTest {
 
     private static MockMvc mockMvc;
     @Autowired
@@ -46,7 +46,7 @@ public class DefaultConfigTest {
 
     @SneakyThrows
     @Test
-    public void testDefaultConfig() {
+    public void testInterfaceConfig() {
         val cookieValue = new CookieValue();
         cookieValue.setUsername("a");
         cookieValue.setRandom("b");
@@ -54,26 +54,19 @@ public class DefaultConfigTest {
         val jsonString = json(cookieValue);
         val mockCookie = new MockCookie("cookie-name", base64(encrypt(jsonString, "A916EFFC3121F935")));
 
-        val verboseCookieValue = new CookieValue();
-        verboseCookieValue.setUsername("a");
-        verboseCookieValue.setRandom("b");
-        verboseCookieValue.setExpiredTime(DateTime.now().plusSeconds(3));
-        val verboseJsonString = json(verboseCookieValue);
-        val verboseMockCookie = new MockCookie("verbose-cookie-name", base64(encrypt(verboseJsonString, "A916EFFC3121F935")));
-
-        val response = mockMvc.perform(get("/default/index")
-                .cookie(verboseMockCookie, mockCookie))
+        val response = mockMvc.perform(get("/interface/index")
+                .cookie(mockCookie))
                 .andExpect(status().isOk())
                 .andReturn().getResponse();
         assertNull(response.getRedirectedUrl());
 
         assertDoesNotThrow(() ->
                 await().pollDelay(Duration.ofMillis(5000)).until(() -> {
-                    val response2 = mockMvc.perform(get("/default/index")
-                            .cookie(verboseMockCookie, mockCookie))
+                    val response2 = mockMvc.perform(get("/interface/index")
+                            .cookie(mockCookie))
                             .andExpect(status().isFound())
                             .andReturn().getResponse();
-                    return "amber-login-url?appId=default&redirectUrl=local-url%2Fdefault%2Findex"
+                    return "amber-login-url?appId=InterfaceConfig&redirectUrl=local-url%2Finterface%2Findex"
                             .equals(response2.getRedirectedUrl());
                 }));
     }

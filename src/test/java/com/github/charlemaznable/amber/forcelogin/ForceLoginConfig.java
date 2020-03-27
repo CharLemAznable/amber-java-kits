@@ -1,4 +1,4 @@
-package com.github.charlemaznable.amber.forceLogin;
+package com.github.charlemaznable.amber.forcelogin;
 
 import com.github.charlemaznable.amber.config.AmberConfig;
 import com.github.charlemaznable.core.miner.MinerConfig;

@@ -1,4 +1,4 @@
-package com.github.charlemaznable.amber.defaultConfig;
+package com.github.charlemaznable.amber.noneconfig;
 
 import com.github.charlemaznable.amber.spring.AmberImport;
 import org.n3r.diamond.client.impl.MockDiamondServer;
@@ -14,18 +14,13 @@ import static org.joor.Reflect.on;
 @EnableWebMvc
 @ComponentScan
 @AmberImport
-public class DefaultConfiguration {
+public class NoneConfiguration {
 
     @PostConstruct
     public void postConstruct() {
         on(springMinerLoader()).field("minerCache").call("invalidateAll");
         MockDiamondServer.setUpMockServer();
-        MockDiamondServer.setConfigInfo("Amber", "default",
-                "AppId=default\n" +
-                        "EncryptKey=A916EFFC3121F935\n" +
-                        "CookieName=cookie-name\n" +
-                        "AmberLoginUrl=amber-login-url\n" +
-                        "LocalUrl=local-url");
+        MockDiamondServer.setConfigInfo("Amber", "default", "");
     }
 
     @PreDestroy
