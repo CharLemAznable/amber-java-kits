@@ -69,6 +69,5 @@ public class CocsTest {
         assertTrue(cookie.getMaxAge() <= 5);
         assertEquals("/", cookie.getPath());
         assertTrue(cookie.isHttpOnly());
-        assertTrue(cookie.getSecure());
     }
 }

@@ -72,7 +72,6 @@ public class AmberCocsHandler {
         val utcExpires = new DateTime(expires * MILLIS_PER_SECOND, UTC);
         cookie.setMaxAge((int) new Duration(utcNow, utcExpires).getStandardSeconds());
         cookie.setPath("/");
-        cookie.setSecure(true);
         cookie.setHttpOnly(true);
         response.addCookie(cookie);
         response.sendRedirect(redirect);
