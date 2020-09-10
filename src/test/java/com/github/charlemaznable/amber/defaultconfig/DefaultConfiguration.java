@@ -20,12 +20,12 @@ public class DefaultConfiguration {
     public void postConstruct() {
         on(springMinerLoader()).field("minerCache").call("invalidateAll");
         MockDiamondServer.setUpMockServer();
-        MockDiamondServer.setConfigInfo("Amber", "default",
+        MockDiamondServer.setConfigInfo("Amber", "default", "" +
                 "AppId=default\n" +
-                        "EncryptKey=A916EFFC3121F935\n" +
-                        "CookieName=cookie-name\n" +
-                        "AmberLoginUrl=amber-login-url\n" +
-                        "LocalUrl=local-url");
+                "EncryptKey=A916EFFC3121F935\n" +
+                "CookieName=cookie-name\n" +
+                "AmberLoginUrl=amber-login-url\n" +
+                "LocalUrl=local-url");
     }
 
     @PreDestroy

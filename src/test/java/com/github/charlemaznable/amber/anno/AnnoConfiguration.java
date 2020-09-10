@@ -18,12 +18,12 @@ public class AnnoConfiguration {
     @PostConstruct
     public void postConstruct() {
         MockDiamondServer.setUpMockServer();
-        MockDiamondServer.setConfigInfo("Amber", "anno",
+        MockDiamondServer.setConfigInfo("Amber", "anno", "" +
                 "AppId=anno\n" +
-                        "EncryptKey=A916EFFC3121F935\n" +
-                        "CookieName=cookie-name\n" +
-                        "AmberLoginUrl=amber-login-url\n" +
-                        "LocalUrl=local-url");
+                "EncryptKey=A916EFFC3121F935\n" +
+                "CookieName=cookie-name\n" +
+                "AmberLoginUrl=amber-login-url\n" +
+                "LocalUrl=local-url");
     }
 
     @PreDestroy

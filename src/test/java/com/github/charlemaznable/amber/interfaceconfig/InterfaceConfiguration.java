@@ -18,12 +18,12 @@ public class InterfaceConfiguration {
     @PostConstruct
     public static void postConstruct() {
         MockDiamondServer.setUpMockServer();
-        MockDiamondServer.setConfigInfo("Amber", "InterfaceConfig",
+        MockDiamondServer.setConfigInfo("Amber", "InterfaceConfig", "" +
                 "InterfaceAppId=InterfaceConfig\n" +
-                        "EncryptKey=A916EFFC3121F935\n" +
-                        "CookieName=cookie-name\n" +
-                        "AmberLoginUrl=amber-login-url\n" +
-                        "LocalUrl=local-url");
+                "EncryptKey=A916EFFC3121F935\n" +
+                "CookieName=cookie-name\n" +
+                "AmberLoginUrl=amber-login-url\n" +
+                "LocalUrl=local-url");
     }
 
     @PreDestroy
