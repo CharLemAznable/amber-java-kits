@@ -1,6 +1,6 @@
 package com.github.charlemaznable.amber.config;
 
-import com.github.charlemaznable.core.miner.MinerConfig;
+import com.github.charlemaznable.miner.MinerConfig;
 
 @MinerConfig(group = "Amber", dataId = "default")
 public interface AmberConfig {

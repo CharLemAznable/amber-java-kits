@@ -1,7 +1,6 @@
 ### amber-java-kits
 
-[![Build Status](https://travis-ci.org/CharLemAznable/amber-java-kits.svg?branch=master)](https://travis-ci.org/CharLemAznable/amber-java-kits)
-[![codecov](https://codecov.io/gh/CharLemAznable/amber-java-kits/branch/master/graph/badge.svg)](https://codecov.io/gh/CharLemAznable/amber-java-kits)
+[![Build](https://github.com/CharLemAznable/amber-java-kits/actions/workflows/build.yml/badge.svg)](https://github.com/CharLemAznable/amber-java-kits/actions/workflows/build.yml)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.charlemaznable/amber-java-kits/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.charlemaznable/amber-java-kits/)
 [![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
 ![GitHub code size](https://img.shields.io/github/languages/code-size/CharLemAznable/amber-java-kits)

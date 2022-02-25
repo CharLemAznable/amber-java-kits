@@ -1,7 +1,7 @@
 package com.github.charlemaznable.amber.interfacenoneconfig;
 
 import com.github.charlemaznable.amber.spring.AmberImport;
-import com.github.charlemaznable.core.miner.MinerScan;
+import com.github.charlemaznable.miner.MinerScan;
 import org.n3r.diamond.client.impl.MockDiamondServer;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
