@@ -31,7 +31,7 @@ import static com.github.charlemaznable.core.lang.Condition.nullThen;
 import static com.github.charlemaznable.core.lang.Str.isBlank;
 import static com.github.charlemaznable.core.lang.Str.isEmpty;
 import static com.github.charlemaznable.miner.MinerFactory.getMiner;
-import static org.springframework.core.annotation.AnnotatedElementUtils.findMergedAnnotation;
+import static org.springframework.core.annotation.AnnotatedElementUtils.getMergedAnnotation;
 
 @Slf4j
 @Component
@@ -85,10 +85,10 @@ public final class AmberInterceptor implements HandlerInterceptor {
     }
 
     private Optional<AmberLogin> findAmberLogin(HandlerAmberLoginCacheKey cacheKey) {
-        val methodAmberLogin = findMergedAnnotation(cacheKey.getMethod(), AmberLogin.class);
+        val methodAmberLogin = getMergedAnnotation(cacheKey.getMethod(), AmberLogin.class);
         if (null != methodAmberLogin) return Optional.of(methodAmberLogin);
 
-        val classAmberLogin = findMergedAnnotation(cacheKey.getDeclaringClass(), AmberLogin.class);
+        val classAmberLogin = getMergedAnnotation(cacheKey.getDeclaringClass(), AmberLogin.class);
         if (null != classAmberLogin) return Optional.of(classAmberLogin);
 
         return Optional.empty();
