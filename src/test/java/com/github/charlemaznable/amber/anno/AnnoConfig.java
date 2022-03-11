@@ -1,8 +1,8 @@
 package com.github.charlemaznable.amber.anno;
 
 import com.github.charlemaznable.amber.config.AmberConfig;
-import com.github.charlemaznable.miner.MinerConfig;
+import com.github.charlemaznable.configservice.diamond.DiamondConfig;
 
-@MinerConfig(group = "Amber", dataId = "anno")
+@DiamondConfig(group = "Amber", dataId = "anno")
 public interface AnnoConfig extends AmberConfig {
 }

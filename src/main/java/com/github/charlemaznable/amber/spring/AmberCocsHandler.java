@@ -15,6 +15,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import static com.github.charlemaznable.configservice.ConfigFactory.getConfig;
 import static com.github.charlemaznable.core.lang.Condition.blankThen;
 import static com.github.charlemaznable.core.lang.Condition.nullThen;
 import static com.github.charlemaznable.core.lang.Mapp.getLong;
@@ -22,7 +23,6 @@ import static com.github.charlemaznable.core.lang.Mapp.getStr;
 import static com.github.charlemaznable.core.lang.Str.isBlank;
 import static com.github.charlemaznable.core.net.Http.errorHttpStatus;
 import static com.github.charlemaznable.core.net.Http.fetchParameterMap;
-import static com.github.charlemaznable.miner.MinerFactory.getMiner;
 import static java.util.Objects.isNull;
 import static org.joda.time.DateTimeConstants.MILLIS_PER_SECOND;
 import static org.joda.time.DateTimeZone.UTC;
@@ -37,7 +37,7 @@ public class AmberCocsHandler {
 
     @Autowired
     public AmberCocsHandler(@Nullable AmberConfig amberConfig) {
-        this.amberConfig = nullThen(amberConfig, () -> getMiner(AmberConfig.class));
+        this.amberConfig = nullThen(amberConfig, () -> getConfig(AmberConfig.class));
     }
 
     @SneakyThrows

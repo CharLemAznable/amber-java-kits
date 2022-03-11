@@ -1,11 +1,11 @@
 package com.github.charlemaznable.amber.interfaceconfig;
 
 import com.github.charlemaznable.amber.config.AmberConfig;
-import com.github.charlemaznable.miner.MinerConfig;
+import com.github.charlemaznable.configservice.diamond.DiamondConfig;
 
-@MinerConfig(group = "Amber", dataId = "InterfaceConfig")
+@DiamondConfig(group = "Amber", dataId = "InterfaceConfig")
 public interface InterfaceConfig extends AmberConfig {
 
-    @MinerConfig(dataId = "InterfaceAppId")
+    @DiamondConfig(dataId = "InterfaceAppId")
     String appId();
 }

@@ -1,25 +1,33 @@
 package com.github.charlemaznable.amber.config;
 
-import com.github.charlemaznable.miner.MinerConfig;
+import com.github.charlemaznable.configservice.apollo.ApolloConfig;
+import com.github.charlemaznable.configservice.diamond.DiamondConfig;
 
-@MinerConfig(group = "Amber", dataId = "default")
+@ApolloConfig(namespace = "Amber", propertyName = "${amber-config:-default}")
+@DiamondConfig(group = "Amber", dataId = "${amber-config:-default}")
 public interface AmberConfig {
 
-    @MinerConfig(dataId = "AppId")
+    @ApolloConfig(propertyName = "AppId")
+    @DiamondConfig(dataId = "AppId")
     String appId();
 
-    @MinerConfig(dataId = "EncryptKey")
+    @ApolloConfig(propertyName = "EncryptKey")
+    @DiamondConfig(dataId = "EncryptKey")
     String encryptKey();
 
-    @MinerConfig(dataId = "CookieName")
+    @ApolloConfig(propertyName = "CookieName")
+    @DiamondConfig(dataId = "CookieName")
     String cookieName();
 
-    @MinerConfig(dataId = "AmberLoginUrl")
+    @ApolloConfig(propertyName = "AmberLoginUrl")
+    @DiamondConfig(dataId = "AmberLoginUrl")
     String amberLoginUrl();
 
-    @MinerConfig(dataId = "LocalUrl")
+    @ApolloConfig(propertyName = "LocalUrl")
+    @DiamondConfig(dataId = "LocalUrl")
     String localUrl();
 
-    @MinerConfig(dataId = "ForceLogin", defaultValue = "TRUE")
+    @ApolloConfig(propertyName = "ForceLogin", defaultValue = "TRUE")
+    @DiamondConfig(dataId = "ForceLogin", defaultValue = "TRUE")
     boolean forceLogin();
 }

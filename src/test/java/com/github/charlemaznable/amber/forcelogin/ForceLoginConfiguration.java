@@ -1,7 +1,7 @@
 package com.github.charlemaznable.amber.forcelogin;
 
 import com.github.charlemaznable.amber.spring.AmberImport;
-import com.github.charlemaznable.miner.MinerScan;
+import com.github.charlemaznable.configservice.diamond.DiamondScan;
 import org.n3r.diamond.client.impl.MockDiamondServer;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -12,7 +12,7 @@ import javax.annotation.PreDestroy;
 @EnableWebMvc
 @ComponentScan
 @AmberImport
-@MinerScan
+@DiamondScan
 public class ForceLoginConfiguration {
 
     @PostConstruct

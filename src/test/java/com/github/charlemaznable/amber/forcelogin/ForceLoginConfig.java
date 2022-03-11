@@ -1,8 +1,8 @@
 package com.github.charlemaznable.amber.forcelogin;
 
 import com.github.charlemaznable.amber.config.AmberConfig;
-import com.github.charlemaznable.miner.MinerConfig;
+import com.github.charlemaznable.configservice.diamond.DiamondConfig;
 
-@MinerConfig(group = "Amber", dataId = "forceLogin")
+@DiamondConfig(group = "Amber", dataId = "forceLogin")
 public interface ForceLoginConfig extends AmberConfig {
 }

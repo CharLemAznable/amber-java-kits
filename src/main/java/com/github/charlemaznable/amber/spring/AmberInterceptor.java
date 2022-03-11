@@ -24,13 +24,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
 import java.util.Optional;
 
+import static com.github.charlemaznable.configservice.ConfigFactory.getConfig;
 import static com.github.charlemaznable.core.codec.Base64.unBase64;
 import static com.github.charlemaznable.core.codec.Json.unJson;
 import static com.github.charlemaznable.core.crypto.AES.decrypt;
 import static com.github.charlemaznable.core.lang.Condition.nullThen;
 import static com.github.charlemaznable.core.lang.Str.isBlank;
 import static com.github.charlemaznable.core.lang.Str.isEmpty;
-import static com.github.charlemaznable.miner.MinerFactory.getMiner;
 import static org.springframework.core.annotation.AnnotatedElementUtils.getMergedAnnotation;
 
 @Slf4j
@@ -43,7 +43,7 @@ public final class AmberInterceptor implements HandlerInterceptor {
 
     @Autowired
     public AmberInterceptor(@Nullable AmberConfig amberConfig) {
-        this.amberConfig = nullThen(amberConfig, () -> getMiner(AmberConfig.class));
+        this.amberConfig = nullThen(amberConfig, () -> getConfig(AmberConfig.class));
     }
 
     @Override

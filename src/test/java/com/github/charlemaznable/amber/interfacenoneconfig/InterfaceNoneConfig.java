@@ -1,8 +1,8 @@
 package com.github.charlemaznable.amber.interfacenoneconfig;
 
 import com.github.charlemaznable.amber.config.AmberConfig;
-import com.github.charlemaznable.miner.MinerConfig;
+import com.github.charlemaznable.configservice.diamond.DiamondConfig;
 
-@MinerConfig(group = "Amber", dataId = "InterfaceNoneConfig")
+@DiamondConfig(group = "Amber", dataId = "InterfaceNoneConfig")
 public interface InterfaceNoneConfig extends AmberConfig {
 }
