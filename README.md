@@ -29,7 +29,7 @@ Java Kits for [amber-login](https://github.com/CharLemAznable/amber-login).
 <dependency>
   <groupId>com.github.charlemaznable</groupId>
   <artifactId>amber-java-kits</artifactId>
-  <version>0.8.1</version>
+  <version>0.8.2</version>
 </dependency>
 ```
 
@@ -39,6 +39,6 @@ Java Kits for [amber-login](https://github.com/CharLemAznable/amber-login).
 <dependency>
   <groupId>com.github.charlemaznable</groupId>
   <artifactId>amber-java-kits</artifactId>
-  <version>0.8.2-SNAPSHOT</version>
+  <version>0.8.3-SNAPSHOT</version>
 </dependency>
 ```
