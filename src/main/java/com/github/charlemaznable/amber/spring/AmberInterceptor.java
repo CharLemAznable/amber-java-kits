@@ -6,11 +6,13 @@ import com.github.charlemaznable.amber.config.AmberConfig;
 import com.github.charlemaznable.core.net.Url;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
-import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
@@ -18,9 +20,6 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
 import java.util.Optional;
 
@@ -38,7 +37,7 @@ import static org.springframework.core.annotation.AnnotatedElementUtils.getMerge
 public final class AmberInterceptor implements HandlerInterceptor {
 
     private final AmberConfig amberConfig;
-    private Cache<HandlerAmberLoginCacheKey, Optional<AmberLogin>>
+    private final Cache<HandlerAmberLoginCacheKey, Optional<AmberLogin>>
             handlerAmberLoginCache = CacheBuilder.newBuilder().build();
 
     @Autowired
@@ -50,9 +49,8 @@ public final class AmberInterceptor implements HandlerInterceptor {
     public boolean preHandle(@Nonnull HttpServletRequest request,
                              @Nonnull HttpServletResponse response,
                              @Nonnull Object handler) throws Exception {
-        if (!(handler instanceof HandlerMethod)) return true;
+        if (!(handler instanceof HandlerMethod handlerMethod)) return true;
 
-        val handlerMethod = (HandlerMethod) handler;
         val cacheKey = new HandlerAmberLoginCacheKey(handlerMethod);
         val amberLoginOptional = handlerAmberLoginCache.get(
                 cacheKey, () -> findAmberLogin(cacheKey));
@@ -78,9 +76,8 @@ public final class AmberInterceptor implements HandlerInterceptor {
             }
         }
 
-        var location = amberLoginUrl + "?appId=" + appId;
-        location += "&redirectUrl=" + Url.encode(localUrl + request.getRequestURI());
-        response.sendRedirect(location);
+        response.sendRedirect(amberLoginUrl + "?appId=" + appId
+                + "&redirectUrl=" + Url.encode(localUrl + request.getRequestURI()));
         return false;
     }
 
@@ -106,15 +103,15 @@ public final class AmberInterceptor implements HandlerInterceptor {
         // | AmberLogin required = false |        pass       |        pass        |
         // +-----------------------------+-------------------+--------------------+
         return (amberLoginOptional.isPresent() && !amberLoginOptional.get().required()) ||
-                (!amberLoginOptional.isPresent() && !amberConfig.forceLogin());
+                (amberLoginOptional.isEmpty() && !amberConfig.forceLogin());
     }
 
     @Getter
     @EqualsAndHashCode
     static class HandlerAmberLoginCacheKey {
 
-        private Method method;
-        private Class<?> declaringClass;
+        private final Method method;
+        private final Class<?> declaringClass;
 
         HandlerAmberLoginCacheKey(HandlerMethod handlerMethod) {
             this.method = handlerMethod.getMethod();

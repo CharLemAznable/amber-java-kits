@@ -1,7 +1,7 @@
 package com.github.charlemaznable.amber.cocs;
 
 import lombok.SneakyThrows;
-import lombok.var;
+import lombok.val;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -38,7 +38,7 @@ public class CocsErrorTest {
     @SneakyThrows
     @Test
     public void testCocs() {
-        var response = mockMvc.perform(get("/cocs"))
+        val response = mockMvc.perform(get("/cocs"))
                 .andExpect(status().isInternalServerError())
                 .andReturn().getResponse();
         assertEquals(INTERNAL_SERVER_ERROR.getReasonPhrase(), response.getContentAsString());

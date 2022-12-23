@@ -2,7 +2,6 @@ package com.github.charlemaznable.amber.cocs;
 
 import lombok.SneakyThrows;
 import lombok.val;
-import lombok.var;
 import org.joda.time.DateTime;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -10,6 +9,7 @@ import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -45,7 +45,7 @@ public class CocsTest {
     @SneakyThrows
     @Test
     public void testCocs() {
-        var response = mockMvc.perform(get("/cocs"))
+        MockHttpServletResponse response = mockMvc.perform(get("/cocs"))
                 .andExpect(status().isBadRequest())
                 .andReturn().getResponse();
         assertEquals(BAD_REQUEST.getReasonPhrase(), response.getContentAsString());
