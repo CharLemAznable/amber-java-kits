@@ -10,7 +10,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
-import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
@@ -38,7 +37,7 @@ import static org.springframework.core.annotation.AnnotatedElementUtils.getMerge
 public final class AmberInterceptor implements HandlerInterceptor {
 
     private final AmberConfig amberConfig;
-    private Cache<HandlerAmberLoginCacheKey, Optional<AmberLogin>>
+    private final Cache<HandlerAmberLoginCacheKey, Optional<AmberLogin>>
             handlerAmberLoginCache = CacheBuilder.newBuilder().build();
 
     @Autowired
@@ -78,9 +77,8 @@ public final class AmberInterceptor implements HandlerInterceptor {
             }
         }
 
-        var location = amberLoginUrl + "?appId=" + appId;
-        location += "&redirectUrl=" + Url.encode(localUrl + request.getRequestURI());
-        response.sendRedirect(location);
+        response.sendRedirect(amberLoginUrl + "?appId=" + appId
+                + "&redirectUrl=" + Url.encode(localUrl + request.getRequestURI()));
         return false;
     }
 
@@ -113,8 +111,8 @@ public final class AmberInterceptor implements HandlerInterceptor {
     @EqualsAndHashCode
     static class HandlerAmberLoginCacheKey {
 
-        private Method method;
-        private Class<?> declaringClass;
+        private final Method method;
+        private final Class<?> declaringClass;
 
         HandlerAmberLoginCacheKey(HandlerMethod handlerMethod) {
             this.method = handlerMethod.getMethod();
