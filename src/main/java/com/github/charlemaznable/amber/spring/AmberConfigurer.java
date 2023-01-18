@@ -25,12 +25,16 @@ public class AmberConfigurer implements WebMvcConfigurer {
 
     @Bean("com.github.charlemaznable.amber.spring.AmberInterceptor")
     public AmberInterceptor amberInterceptor() {
-        return new AmberInterceptor(getBean(AmberConfig.class, defaultAmberConfigSupplier()));
+        return new AmberInterceptor(amberConfig());
     }
 
     @Bean("com.github.charlemaznable.amber.spring.AmberCocsHandler")
     public AmberCocsHandler amberCocsHandler() {
-        return new AmberCocsHandler(getBean(AmberConfig.class, defaultAmberConfigSupplier()));
+        return new AmberCocsHandler(amberConfig());
+    }
+
+    private AmberConfig amberConfig() {
+        return getBean(AmberConfig.class, defaultAmberConfigSupplier());
     }
 
     private Supplier<AmberConfig> defaultAmberConfigSupplier() {
