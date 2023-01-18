@@ -8,11 +8,10 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.annotation.Nonnull;
-
 import java.util.function.Supplier;
 
 import static com.github.charlemaznable.configservice.ConfigFactory.getConfig;
-import static com.github.charlemaznable.core.spring.SpringContext.getBean;
+import static com.github.charlemaznable.core.spring.SpringContext.getBeanOrAutowire;
 
 @Configuration
 @ElvesImport
@@ -34,7 +33,7 @@ public class AmberConfigurer implements WebMvcConfigurer {
     }
 
     private AmberConfig amberConfig() {
-        return getBean(AmberConfig.class, defaultAmberConfigSupplier());
+        return getBeanOrAutowire(AmberConfig.class, defaultAmberConfigSupplier());
     }
 
     private Supplier<AmberConfig> defaultAmberConfigSupplier() {
