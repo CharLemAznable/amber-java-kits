@@ -9,21 +9,18 @@ import com.google.common.cache.CacheBuilder;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.lang.reflect.Method;
 import java.util.Optional;
 
-import static com.github.charlemaznable.configservice.ConfigFactory.getConfig;
 import static com.github.charlemaznable.core.codec.Base64.unBase64;
 import static com.github.charlemaznable.core.codec.Json.unJson;
 import static com.github.charlemaznable.core.crypto.AES.decrypt;
@@ -33,17 +30,12 @@ import static com.github.charlemaznable.core.lang.Str.isEmpty;
 import static org.springframework.core.annotation.AnnotatedElementUtils.getMergedAnnotation;
 
 @Slf4j
-@Component
+@AllArgsConstructor
 public final class AmberInterceptor implements HandlerInterceptor {
 
     private final AmberConfig amberConfig;
     private final Cache<HandlerAmberLoginCacheKey, Optional<AmberLogin>>
             handlerAmberLoginCache = CacheBuilder.newBuilder().build();
-
-    @Autowired
-    public AmberInterceptor(@Nullable AmberConfig amberConfig) {
-        this.amberConfig = nullThen(amberConfig, () -> getConfig(AmberConfig.class));
-    }
 
     @Override
     public boolean preHandle(@Nonnull HttpServletRequest request,

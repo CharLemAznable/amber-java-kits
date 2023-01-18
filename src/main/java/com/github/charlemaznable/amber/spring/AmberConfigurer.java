@@ -1,30 +1,40 @@
 package com.github.charlemaznable.amber.spring;
 
+import com.github.charlemaznable.amber.config.AmberConfig;
 import com.github.charlemaznable.core.spring.ElvesImport;
-import com.github.charlemaznable.core.spring.NeoComponentScan;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.annotation.Nonnull;
 
-@SuppressWarnings("SpringFacetCodeInspection")
+import java.util.function.Supplier;
+
+import static com.github.charlemaznable.configservice.ConfigFactory.getConfig;
+import static com.github.charlemaznable.core.spring.SpringContext.getBean;
+
 @Configuration
 @ElvesImport
-@NeoComponentScan
 public class AmberConfigurer implements WebMvcConfigurer {
-
-    private final AmberInterceptor amberInterceptor;
-
-    @Autowired
-    public AmberConfigurer(AmberInterceptor amberInterceptor) {
-        this.amberInterceptor = amberInterceptor;
-    }
 
     @Override
     public void addInterceptors(@Nonnull InterceptorRegistry registry) {
-        registry.addInterceptor(amberInterceptor);
+        registry.addInterceptor(amberInterceptor());
+    }
+
+    @Bean("com.github.charlemaznable.amber.spring.AmberInterceptor")
+    public AmberInterceptor amberInterceptor() {
+        return new AmberInterceptor(getBean(AmberConfig.class, defaultAmberConfigSupplier()));
+    }
+
+    @Bean("com.github.charlemaznable.amber.spring.AmberCocsHandler")
+    public AmberCocsHandler amberCocsHandler() {
+        return new AmberCocsHandler(getBean(AmberConfig.class, defaultAmberConfigSupplier()));
+    }
+
+    private Supplier<AmberConfig> defaultAmberConfigSupplier() {
+        return () -> getConfig(AmberConfig.class);
     }
 }
 

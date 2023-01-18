@@ -1,33 +1,25 @@
 package com.github.charlemaznable.amber.config;
 
-import com.github.charlemaznable.configservice.apollo.ApolloConfig;
-import com.github.charlemaznable.configservice.diamond.DiamondConfig;
+import com.github.charlemaznable.configservice.Config;
 
-@ApolloConfig(namespace = "Amber", propertyName = "${amber-config:-default}")
-@DiamondConfig(group = "Amber", dataId = "${amber-config:-default}")
+@Config(keyset = "Amber", key = "${amber-config:-default}")
 public interface AmberConfig {
 
-    @ApolloConfig(propertyName = "AppId")
-    @DiamondConfig(dataId = "AppId")
+    @Config("AppId")
     String appId();
 
-    @ApolloConfig(propertyName = "EncryptKey")
-    @DiamondConfig(dataId = "EncryptKey")
+    @Config("EncryptKey")
     String encryptKey();
 
-    @ApolloConfig(propertyName = "CookieName")
-    @DiamondConfig(dataId = "CookieName")
+    @Config("CookieName")
     String cookieName();
 
-    @ApolloConfig(propertyName = "AmberLoginUrl")
-    @DiamondConfig(dataId = "AmberLoginUrl")
+    @Config("AmberLoginUrl")
     String amberLoginUrl();
 
-    @ApolloConfig(propertyName = "LocalUrl")
-    @DiamondConfig(dataId = "LocalUrl")
+    @Config("LocalUrl")
     String localUrl();
 
-    @ApolloConfig(propertyName = "ForceLogin", defaultValue = "TRUE")
-    @DiamondConfig(dataId = "ForceLogin", defaultValue = "TRUE")
+    @Config(key = "ForceLogin", defaultValue = "TRUE")
     boolean forceLogin();
 }
