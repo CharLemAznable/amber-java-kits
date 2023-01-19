@@ -4,7 +4,6 @@ import com.github.charlemaznable.amber.config.AmberConfig;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
@@ -12,8 +11,11 @@ import org.joda.time.DateTime;
 import org.joda.time.Duration;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
+import static com.github.charlemaznable.configservice.ConfigFactory.getConfig;
 import static com.github.charlemaznable.core.lang.Condition.blankThen;
+import static com.github.charlemaznable.core.lang.Condition.nullThen;
 import static com.github.charlemaznable.core.lang.Mapp.getLong;
 import static com.github.charlemaznable.core.lang.Mapp.getStr;
 import static com.github.charlemaznable.core.lang.Str.isBlank;
@@ -26,10 +28,13 @@ import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 
 @Slf4j
-@AllArgsConstructor
 public class AmberCocsHandler {
 
     private final AmberConfig amberConfig;
+
+    public AmberCocsHandler(@Nullable AmberConfig amberConfig) {
+        this.amberConfig = nullThen(amberConfig, () -> getConfig(AmberConfig.class));
+    }
 
     @SneakyThrows
     public void handle(@Nonnull HttpServletRequest request,

@@ -11,9 +11,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.annotation.Nonnull;
 
-import static com.github.charlemaznable.configservice.ConfigFactory.getConfig;
-import static com.github.charlemaznable.core.lang.Condition.nullThen;
-
 @Configuration
 @ElvesImport
 public class AmberConfigurer implements WebMvcConfigurer {
@@ -22,7 +19,7 @@ public class AmberConfigurer implements WebMvcConfigurer {
 
     @Autowired
     public AmberConfigurer(@Nullable AmberConfig amberConfig) {
-        this.amberConfig = nullThen(amberConfig, () -> getConfig(AmberConfig.class));
+        this.amberConfig = amberConfig;
     }
 
     @Override
