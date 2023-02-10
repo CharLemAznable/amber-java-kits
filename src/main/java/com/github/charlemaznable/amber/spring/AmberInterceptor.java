@@ -10,8 +10,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -33,14 +31,12 @@ import static com.github.charlemaznable.core.lang.Str.isEmpty;
 import static org.springframework.core.annotation.AnnotatedElementUtils.getMergedAnnotation;
 
 @Slf4j
-@Component
 public final class AmberInterceptor implements HandlerInterceptor {
 
     private final AmberConfig amberConfig;
     private final Cache<HandlerAmberLoginCacheKey, Optional<AmberLogin>>
             handlerAmberLoginCache = CacheBuilder.newBuilder().build();
 
-    @Autowired
     public AmberInterceptor(@Nullable AmberConfig amberConfig) {
         this.amberConfig = nullThen(amberConfig, () -> getConfig(AmberConfig.class));
     }

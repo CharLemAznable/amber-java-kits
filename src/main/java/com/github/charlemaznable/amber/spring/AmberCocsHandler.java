@@ -6,8 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -30,12 +28,10 @@ import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 
 @Slf4j
-@Component
 public class AmberCocsHandler {
 
     private final AmberConfig amberConfig;
 
-    @Autowired
     public AmberCocsHandler(@Nullable AmberConfig amberConfig) {
         this.amberConfig = nullThen(amberConfig, () -> getConfig(AmberConfig.class));
     }
